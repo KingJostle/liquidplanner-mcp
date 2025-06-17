@@ -83,3 +83,9 @@ RUN python -m pytest tests/ -v --cov=src/liquidplanner_mcp --cov-report=html
 
 # Final stage selector
 FROM ${BUILD_TARGET:-production}
+# Add this to your existing Dockerfile
+COPY src/ /app/src/
+WORKDIR /app
+
+# Update the CMD to use the new structure
+CMD ["python", "-m", "src.liquidplanner_mcp"]
