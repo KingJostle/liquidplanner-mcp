@@ -1,0 +1,289 @@
+# LiquidPlanner MCP Server .gitignore
+
+# ============================================================================
+# ENVIRONMENT & SECRETS
+# ============================================================================
+.env
+.env.local
+.env.production
+.env.staging
+config/.env
+config/secrets.yaml
+*.key
+*.pem
+*.p12
+
+# ============================================================================
+# PYTHON
+# ============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ============================================================================
+# VIRTUAL ENVIRONMENTS
+# ============================================================================
+venv/
+ENV/
+env/
+.venv/
+.ENV/
+.env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ============================================================================
+# TESTING
+# ============================================================================
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+htmlcov/
+.testmondata
+
+# ============================================================================
+# DEVELOPMENT TOOLS
+# ============================================================================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+
+# ============================================================================
+# LOGS & DATA
+# ============================================================================
+logs/
+*.log
+data/
+backups/
+exports/
+imports/
+temp/
+tmp/
+cache/
+
+# ============================================================================
+# DOCKER
+# ============================================================================
+.dockerignore
+docker-compose.override.yml
+docker-compose.local.yml
+
+# ============================================================================
+# DATABASE
+# ============================================================================
+*.db
+*.sqlite3
+*.sqlite
+db.sqlite3
+database.db
+
+# ============================================================================
+# IDE & EDITORS
+# ============================================================================
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Atom
+.atom/
+
+# ============================================================================
+# OPERATING SYSTEM
+# ============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ============================================================================
+# DOCUMENTATION
+# ============================================================================
+docs/_build/
+docs/_static/
+docs/_templates/
+site/
+
+# ============================================================================
+# MONITORING & METRICS
+# ============================================================================
+prometheus_data/
+grafana_data/
+*.prom
+alertmanager_data/
+
+# ============================================================================
+# CERTIFICATES & KEYS
+# ============================================================================
+*.crt
+*.key
+*.pem
+*.p12
+*.pfx
+certs/
+ssl/
+
+# ============================================================================
+# CONFIGURATION OVERRIDES
+# ============================================================================
+config/local.yaml
+config/development.yaml
+config/production.yaml
+config/override.yaml
+
+# ============================================================================
+# MIGRATION FILES (if using database migrations)
+# ============================================================================
+migrations/versions/
+
+# ============================================================================
+# JUPYTER NOTEBOOKS
+# ============================================================================
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+*.ipynb
+
+# ============================================================================
+# BACKUP FILES
+# ============================================================================
+*.bak
+*.backup
+*.old
+*.orig
+*.save
+
+# ============================================================================
+# ARCHIVE FILES
+# ============================================================================
+*.zip
+*.tar.gz
+*.tgz
+*.tar
+*.rar
+*.7z
+
+# ============================================================================
+# LIQUIDPLANNER-SPECIFIC
+# ============================================================================
+workspace_backups/
+timesheet_exports/
+task_exports/
+custom_field_backups/
+api_responses/
+
+# ============================================================================
+# DEVELOPMENT ARTIFACTS
+# ============================================================================
+.scratch/
+.playground/
+experiments/
+prototypes/
+sandbox/
+
+# ============================================================================
+# PERFORMANCE PROFILING
+# ============================================================================
+*.prof
+profile_output/
+.profiling/
+
+# ============================================================================
+# TEMPORARY FILES
+# ============================================================================
+*.tmp
+*.temp
+.temporary/
+staging/

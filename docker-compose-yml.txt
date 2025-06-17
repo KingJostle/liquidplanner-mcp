@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  liquidplanner-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: liquidplanner-mcp
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - LP_API_TOKEN=${LP_API_TOKEN}
+      - LP_WORKSPACE_ID=${LP_WORKSPACE_ID}
+      - LP_BASE_URL=${LP_BASE_URL:-https://app.liquidplanner.com/api/v1}
+      - LP_RATE_LIMIT=${LP_RATE_LIMIT:-60}
+      - MCP_PORT=${MCP_PORT:-8000}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - CACHE_ENABLED=${CACHE_ENABLED:-true}
+      - CACHE_TTL=${CACHE_TTL:-300}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./config:/app/config
+    networks:
+      - liquidplanner-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      - redis
+    command: ["python", "-m", "liquidplanner_mcp.server"]
+
+  redis:
+    image: redis:7-alpine
+    container_name: liquidplanner-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - liquidplanner-network
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Optional: Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: liquidplanner-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - liquidplanner-network
+    profiles:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: liquidplanner-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./config/grafana:/etc/grafana/provisioning
+    networks:
+      - liquidplanner-network
+    profiles:
+      - monitoring
+    depends_on:
+      - prometheus
+
+volumes:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  liquidplanner-network:
+    driver: bridge
